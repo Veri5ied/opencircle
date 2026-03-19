@@ -1,6 +1,6 @@
 import type { ArenaMessage, Model } from "@/lib/open-circle/constants";
 
-import { MentionText } from "./mention-text";
+import { MessageMarkdown } from "./message-markdown";
 import { ModelBadge } from "./model-badge";
 
 type MessageBubbleProps = {
@@ -23,7 +23,13 @@ export function MessageBubble({ msg, models, replyMsg }: MessageBubbleProps) {
       {isUser && (
         <div className="w-7 h-7 rounded-lg shrink-0 flex items-center justify-center bg-white/5 border border-faint">
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="5.5" r="2.5" stroke="#4a4468" strokeWidth="1.2" />
+            <circle
+              cx="8"
+              cy="5.5"
+              r="2.5"
+              stroke="#4a4468"
+              strokeWidth="1.2"
+            />
             <path
               d="M2.5 13c0-3.038 2.462-5.5 5.5-5.5s5.5 2.462 5.5 5.5"
               stroke="#4a4468"
@@ -37,10 +43,15 @@ export function MessageBubble({ msg, models, replyMsg }: MessageBubbleProps) {
       <div className="max-w-[85%] sm:max-w-[72%] min-w-0">
         {!isUser && model && (
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="f-mono text-[11px] font-medium" style={{ color: model.color }}>
+            <span
+              className="f-mono text-[11px] font-medium"
+              style={{ color: model.color }}
+            >
               {model.name}
             </span>
-            <span className="f-mono text-[10px] text-nav2">{model.provider}</span>
+            <span className="f-mono text-[10px] text-nav2">
+              {model.provider}
+            </span>
             <span className="f-mono text-[10px] text-dim">{msg.timestamp}</span>
           </div>
         )}
@@ -74,15 +85,19 @@ export function MessageBubble({ msg, models, replyMsg }: MessageBubbleProps) {
                 }
           }
         >
-          <p
-            className="m-0 text-sm leading-relaxed f-body font-light"
+          <div
+            className="font-light"
             style={{ color: isUser ? "#b8b4d0" : "#9e9ab8" }}
           >
-            <MentionText text={msg.content} models={models} />
-          </p>
+            <MessageMarkdown text={msg.content} models={models} />
+          </div>
         </div>
 
-        {isUser && <div className="text-right mt-1 f-mono text-[10px] text-dim">{msg.timestamp}</div>}
+        {isUser && (
+          <div className="text-right mt-1 f-mono text-[10px] text-dim">
+            {msg.timestamp}
+          </div>
+        )}
       </div>
     </div>
   );
